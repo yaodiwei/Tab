@@ -2,16 +2,6 @@ package com.yao.tab;
 
 import android.os.Bundle;
 
-import com.google.android.material.tabs.TabLayout;
-import com.yao.tab.ui.dashboard.DashboardFragment;
-import com.yao.tab.ui.home.HomeFragment;
-import com.yao.tab.ui.notifications.NotificationsFragment;
-import com.yao.tab.util.ResUtil;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,14 +9,19 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.android.material.tabs.TabLayout;
+import com.yao.tab.ui.dashboard.DashboardFragment;
+import com.yao.tab.ui.home.HomeFragment;
+import com.yao.tab.ui.notifications.NotificationsFragment;
+
+import java.util.Objects;
+
 public class Tab2Activity extends AppCompatActivity {
 
-    private List<Fragment> mFragments = new ArrayList<>();
+    private static final int FRAGMENT_COUNT = 3;
 
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
-
-    private String[] mTitles = new String[]{ResUtil.getString(R.string.title_home), ResUtil.getString(R.string.title_dashboard), ResUtil.getString(R.string.title_notifications)};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,14 +30,6 @@ public class Tab2Activity extends AppCompatActivity {
 
         mViewPager = findViewById(R.id.view_pager);
         mTabLayout = findViewById(R.id.tab_layout);
-
-        Fragment chatFragment = new HomeFragment();
-        Fragment friendsFragment = new DashboardFragment();
-        Fragment contactsFragment = new NotificationsFragment();
-
-        mFragments.add(chatFragment);
-        mFragments.add(friendsFragment);
-        mFragments.add(contactsFragment);
 
         mTabLayout.addTab(mTabLayout.newTab());
         mTabLayout.addTab(mTabLayout.newTab());
@@ -56,13 +43,22 @@ public class Tab2Activity extends AppCompatActivity {
         FragmentPagerAdapter adapter = new FragmentPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @Override
             public int getCount() {
-                return mFragments.size();
+                return FRAGMENT_COUNT;
             }
 
             @NonNull
             @Override
             public Fragment getItem(int position) {
-                return mFragments.get(position);
+                //https://mp.weixin.qq.com/s/MOWdbI5IREjQP1Px-WJY1Q
+                if (position == 0) {
+                    return new HomeFragment();
+                } else if (position == 1) {
+                    return new DashboardFragment();
+                } else if (position == 2) {
+                    return new NotificationsFragment();
+                } else {
+                    throw new IllegalStateException("FragmentPagerAdapter getItem position is illegal");
+                }
             }
         };
         mViewPager.setAdapter(adapter);

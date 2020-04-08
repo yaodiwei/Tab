@@ -2,17 +2,10 @@ package com.yao.tab;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.Window;
 import android.widget.RadioButton;
-
-import com.yao.tab.ui.dashboard.DashboardFragment;
-import com.yao.tab.ui.home.HomeFragment;
-import com.yao.tab.ui.notifications.NotificationsFragment;
-import com.yao.tab.util.ResUtil;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,15 +13,22 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.yao.tab.ui.dashboard.DashboardFragment;
+import com.yao.tab.ui.home.HomeFragment;
+import com.yao.tab.ui.notifications.NotificationsFragment;
+import com.yao.tab.util.ResUtil;
+
 public class Tab1Activity extends AppCompatActivity implements View.OnClickListener {
 
-    private List<Fragment> mFragments = new ArrayList<>();
+    private static final int FRAGMENT_COUNT = 3;
 
     private ViewPager mViewPager;
 
     private RadioButton mRbHome;
     private RadioButton mRbDashboard;
     private RadioButton mRbNotifications;
+
+    private SparseArray<Fragment> fragmentList = new SparseArray<>(3);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,24 +82,25 @@ public class Tab1Activity extends AppCompatActivity implements View.OnClickListe
             public void onPageScrollStateChanged(int arg0) {}
         });
 
-        Fragment chatFragment = new HomeFragment();
-        Fragment friendsFragment = new DashboardFragment();
-        Fragment contactsFragment = new NotificationsFragment();
-
-        mFragments.add(chatFragment);
-        mFragments.add(friendsFragment);
-        mFragments.add(contactsFragment);
-
         FragmentPagerAdapter adapter = new FragmentPagerAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @Override
             public int getCount() {
-                return mFragments.size();
+                return FRAGMENT_COUNT;
             }
 
             @NonNull
             @Override
             public Fragment getItem(int position) {
-                return mFragments.get(position);
+                //https://mp.weixin.qq.com/s/MOWdbI5IREjQP1Px-WJY1Q
+                if (position == 0) {
+                    return new HomeFragment();
+                } else if (position == 1) {
+                    return new DashboardFragment();
+                } else if (position == 2) {
+                    return new NotificationsFragment();
+                } else {
+                    throw new IllegalStateException("FragmentPagerAdapter getItem position is illegal");
+                }
             }
         };
         mViewPager.setAdapter(adapter);
