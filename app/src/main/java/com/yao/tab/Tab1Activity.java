@@ -125,4 +125,23 @@ public class Tab1Activity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+
+    public ViewPager.OnPageChangeListener pageListener = new ViewPager.OnPageChangeListener() {
+
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    };
 }
