@@ -59,6 +59,30 @@
                 android:paddingTop="8dp"
                 android:text="@string/title_notifications"
                 android:textColor="@drawable/tab_text_view_color" />
+
+            <RadioButton
+                android:id="@+id/rb_news"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/ic_news"
+                android:gravity="center_horizontal"
+                android:paddingTop="8dp"
+                android:text="@string/title_news"
+                android:textColor="@drawable/tab_text_view_color" />
+
+            <RadioButton
+                android:id="@+id/rb_profile"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/ic_profile"
+                android:gravity="center_horizontal"
+                android:paddingTop="8dp"
+                android:text="@string/title_profile"
+                android:textColor="@drawable/tab_text_view_color" />
         </RadioGroup>
     </androidx.cardview.widget.CardView>
 

@@ -8,14 +8,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.yao.tab.R;
+import com.yao.tab.ui.BaseFragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment {
 
     private static final String TAG = "HomeFragment";
 

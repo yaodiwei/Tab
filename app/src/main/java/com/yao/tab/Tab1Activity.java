@@ -15,20 +15,24 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.yao.tab.ui.dashboard.DashboardFragment;
 import com.yao.tab.ui.home.HomeFragment;
+import com.yao.tab.ui.news.news.NewsFragment;
 import com.yao.tab.ui.notifications.NotificationsFragment;
+import com.yao.tab.ui.profile.ProfileFragment;
 import com.yao.tab.util.ResUtil;
 
 public class Tab1Activity extends AppCompatActivity implements View.OnClickListener {
 
-    private static final int FRAGMENT_COUNT = 3;
+    private static final int FRAGMENT_COUNT = 5;
 
     private ViewPager mViewPager;
 
     private RadioButton mRbHome;
     private RadioButton mRbDashboard;
     private RadioButton mRbNotifications;
+    private RadioButton mRbNews;
+    private RadioButton mRbProfile;
 
-    private SparseArray<Fragment> fragmentList = new SparseArray<>(3);
+    private final SparseArray<Fragment> fragmentList = new SparseArray<>(3);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,8 @@ public class Tab1Activity extends AppCompatActivity implements View.OnClickListe
         mRbHome = findViewById(R.id.rb_home);
         mRbDashboard = findViewById(R.id.rb_dashboard);
         mRbNotifications = findViewById(R.id.rb_notifications);
+        mRbNews = findViewById(R.id.rb_news);
+        mRbProfile = findViewById(R.id.rb_profile);
 
         //设置 RadioButton 图标的大小
         Drawable drawableHome = ResUtil.getDrawable(R.drawable.ic_home);
@@ -55,13 +61,23 @@ public class Tab1Activity extends AppCompatActivity implements View.OnClickListe
         drawableNotifications.setBounds(0, 0, ResUtil.getDimen(R.dimen.tab_icon_size), ResUtil.getDimen(R.dimen.tab_icon_size));
         mRbNotifications.setCompoundDrawables(null, drawableNotifications, null, null);
 
+        Drawable drawableNews = ResUtil.getDrawable(R.drawable.ic_news);
+        drawableNews.setBounds(0, 0, ResUtil.getDimen(R.dimen.tab_icon_size), ResUtil.getDimen(R.dimen.tab_icon_size));
+        mRbNews.setCompoundDrawables(null, drawableNews, null, null);
+
+        Drawable drawableProfile = ResUtil.getDrawable(R.drawable.ic_profile);
+        drawableProfile.setBounds(0, 0, ResUtil.getDimen(R.dimen.tab_icon_size), ResUtil.getDimen(R.dimen.tab_icon_size));
+        mRbProfile.setCompoundDrawables(null, drawableProfile, null, null);
+
         mRbHome.setOnClickListener(this);
         mRbDashboard.setOnClickListener(this);
         mRbNotifications.setOnClickListener(this);
+        mRbNews.setOnClickListener(this);
+        mRbProfile.setOnClickListener(this);
 
         //设置左边和右边各缓存多少个页面。
         //设置成2后，可以保证3个Tab滑动到哪个Tab下，其他Tab都不会被回收。
-        mViewPager.setOffscreenPageLimit(2);
+        mViewPager.setOffscreenPageLimit(0);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
@@ -72,6 +88,10 @@ public class Tab1Activity extends AppCompatActivity implements View.OnClickListe
                     onClick(mRbDashboard);
                 } else if (position == 2) {
                     onClick(mRbNotifications);
+                } else if (position == 3) {
+                    onClick(mRbNews);
+                } else if (position == 4) {
+                    onClick(mRbProfile);
                 }
             }
 
@@ -98,6 +118,10 @@ public class Tab1Activity extends AppCompatActivity implements View.OnClickListe
                     return new DashboardFragment();
                 } else if (position == 2) {
                     return new NotificationsFragment();
+                } else if (position == 3) {
+                    return new NewsFragment();
+                } else if (position == 4) {
+                    return new ProfileFragment();
                 } else {
                     throw new IllegalStateException("FragmentPagerAdapter getItem position is illegal");
                 }
@@ -120,6 +144,14 @@ public class Tab1Activity extends AppCompatActivity implements View.OnClickListe
             case R.id.rb_notifications:
                 mViewPager.setCurrentItem(2);
                 mRbNotifications.setChecked(true);
+                break;
+            case R.id.rb_news:
+                mViewPager.setCurrentItem(3);
+                mRbNews.setChecked(true);
+                break;
+            case R.id.rb_profile:
+                mViewPager.setCurrentItem(4);
+                mRbProfile.setChecked(true);
                 break;
             default:
                 break;

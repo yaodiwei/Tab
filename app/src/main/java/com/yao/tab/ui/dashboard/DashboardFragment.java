@@ -9,13 +9,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.yao.tab.R;
+import com.yao.tab.ui.BaseFragment;
 
-public class DashboardFragment extends Fragment {
+public class DashboardFragment extends BaseFragment {
 
     private static final String TAG = "DashboardFragment";
 
