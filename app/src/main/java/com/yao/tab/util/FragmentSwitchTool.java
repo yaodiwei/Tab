@@ -79,6 +79,7 @@ public class FragmentSwitchTool implements OnClickListener {
             targetFragment = mFragments[targetPosition];
 
             fragmentTransaction.add(mContainerId, targetFragment, String.valueOf(targetView.getId()));
+            //fragmentTransaction.setMaxLifecycle(targetFragment, Lifecycle.State.STARTED);
         } else {
             fragmentTransaction.hide(mCurrentFragment);
             mCurrentSelectedView.setSelected(false);
